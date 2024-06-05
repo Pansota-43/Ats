@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auto Scrolling Text</title>
+    <style>
+/* styles.css */
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.scroll-container {
+    width: 300px;
+    height: 50px;
+    overflow: hidden;
+    border: 2px solid #000;
+    position: relative;
+}
+
+.scroll-content {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 0;
+    transition: transform 1s linear;
+}
+
+.scroll-text {
+    padding: 10px;
+    text-align: center;
+}
+
+    </style>
+</heyad>
+<body>
+    <div class="scroll-container">
+        <div class="scroll-content">
+            <div class="scroll-text">Text Set 1</div>
+            <div class="scroll-text">Text Set 2</div>
+            <div class="scroll-text">Text Set 3</div>
+            <div class="scroll-text">Text Set 4</div>
+            <div class="scroll-text">Text Set 5</div>
+            <div class="scroll-text">Text Set 6</div>
+            <div class="scroll-text">Text Set 7</div>
+            <div class="scroll-text">Text Set 8</div>
+            <div class="scroll-text">Text Set 9</div>
+            <div class="scroll-text">Text Set 10</div>
+            <!-- Duplicate the text sets for continuous scrolling -->
+            <div class="scroll-text">Text Set 1</div>
+            <div class="scroll-text">Text Set 2</div>
+            <div class="scroll-text">Text Set 3</div>
+            <div class="scroll-text">Text Set 4</div>
+            <div class="scroll-text">Text Set 5</div>
+            <div class="scroll-text">Text Set 6</div>
+            <div class="scroll-text">Text Set 7</div>
+            <div class="scroll-text">Text Set 8</div>
+            <div class="scroll-text">Text Set 9</div>
+            <div class="scroll-text">Text Set 10</div>
+        </div>
+    </div>
+    <script>
+ 
+document.addEventListener("DOMContentLoaded", function() {
+    const content = document.querySelector('.scroll-content');
+    const texts = document.querySelectorAll('.scroll-text');
+    const textHeight = texts[0].offsetHeight;
+    let currentPosition = 0;
+    const delay = 3000; // 3 seconds delay between scrolls
+
+    function scrollText() {
+        currentPosition -= textHeight;
+
+        if (currentPosition <= -content.scrollHeight / 2) {
+            // Reset position to the top part of the duplicate content
+            content.style.transition = 'none';
+            currentPosition = 0;
+            content.style.transform = `translateY(${currentPosition}px)`;
+            // Force reflow to apply the transform instantly
+            content.offsetHeight;
+            // Re-enable transition for smooth scrolling
+            content.style.transition = 'transform 1s linear';
+            // Move to the first duplicate text set after reset
+            currentPosition -= textHeight;
+        }
+
+        content.style.transform = `translateY(${currentPosition}px)`;
+
+        setTimeout(scrollText, delay + 1000); // Add transition duration to delay
+    }
+
+    setTimeout(scrollText, delay); // Initial delay before starting
+});
+
+    </script>
+</body>
+</html>
